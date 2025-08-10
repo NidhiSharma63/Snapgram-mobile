@@ -6,7 +6,7 @@ import HomeScreen from 'pages/HomeScreen';
 import InboxScreen from 'pages/InboxScreen';
 import PeopleScreen from 'pages/PeopleScreen';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +28,12 @@ function BottomTabs() {
 const main = () => {
   return (
     <NavigationContainer>
-      <SafeAreaView style={{flex: 1, backgroundColor: 'Transparent'}}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          paddingTop: 20,
+          backgroundColor: 'black',
+        }}>
         <BottomTabs />
       </SafeAreaView>
     </NavigationContainer>

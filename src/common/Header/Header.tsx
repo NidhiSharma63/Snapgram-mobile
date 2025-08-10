@@ -1,19 +1,20 @@
+import style from 'common/Header/style';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Logo from '../../assets/images/logo.svg';
+import LogoOut from '../../assets/images/logout.svg';
+import ProfilePlaceholderCopy from '../../assets/images/profile-placeholder copy.svg';
 
 const Header = () => {
   return (
-    <View>
-      <Logo />
-      <Text>Snapgram</Text>
+    <View style={style.header}>
+      <Logo width={32} height={32} />
+      <View style={[style.header, style.gap]}>
+        <LogoOut width={28} height={28} />
+        <ProfilePlaceholderCopy width={32} height={32} />
+      </View>
     </View>
   );
 };
 
 export default Header;
-
-// <Image
-//       source={require('../../assets/images/logo.svg')}
-//       style={{width: 200, height: 20}}
-//     />
