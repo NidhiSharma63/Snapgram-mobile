@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import CreatePost from 'pages/CreatePost';
+import CreatePost from 'pages/CreatePostScreen';
 import Explore from 'pages/Explore';
 import HomeScreen from 'pages/HomeScreen';
 import PeopleScreen from 'pages/PeopleScreen';
