@@ -5,7 +5,7 @@ import {View} from 'react-native';
 
 const PeopleScreen = () => {
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Header />
       <People />
     </View>

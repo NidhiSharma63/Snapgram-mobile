@@ -1,12 +1,15 @@
+import Header from 'common/Header/Header';
+import Explore from 'components/ExploreComponent/Explore';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
-const Explore = () => {
+const ExploreScreen = () => {
   return (
     <View>
-      <Text>Explore</Text>
+      <Header />
+      <Explore />
     </View>
   );
 };
 
-export default Explore;
+export default ExploreScreen;
