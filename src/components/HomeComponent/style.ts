@@ -10,7 +10,6 @@ const style = StyleSheet.create({
     paddingRight: 10,
     gap: 10,
     flex: 1,
-    backgroundColor: colors.secondary,
   },
   postCard: {
     padding: 10,

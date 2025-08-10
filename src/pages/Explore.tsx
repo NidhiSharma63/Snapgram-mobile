@@ -1,7 +1,12 @@
 import React from 'react';
+import {Text, View} from 'react-native';
 
 const Explore = () => {
-  return <div>Explore</div>;
+  return (
+    <View>
+      <Text>Explore</Text>
+    </View>
+  );
 };
 
 export default Explore;

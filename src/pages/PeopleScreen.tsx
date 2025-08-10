@@ -1,8 +1,15 @@
+import Header from 'common/Header/Header';
+import People from 'components/PeopleComponent/People';
 import React from 'react';
-import {Text} from 'react-native';
+import {View} from 'react-native';
 
 const PeopleScreen = () => {
-  return <Text>PeopleScreen</Text>;
+  return (
+    <View>
+      <Header />
+      <People />
+    </View>
+  );
 };
 
 export default PeopleScreen;

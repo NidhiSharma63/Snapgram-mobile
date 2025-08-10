@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import CreatePost from 'pages/CreatePost';
 import Explore from 'pages/Explore';
 import HomeScreen from 'pages/HomeScreen';
-import InboxScreen from 'pages/InboxScreen';
 import PeopleScreen from 'pages/PeopleScreen';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
@@ -18,7 +17,6 @@ function BottomTabs() {
       }}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="People" component={PeopleScreen} />
-      <Tab.Screen name="InboxPost" component={InboxScreen} />
       <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Create Post" component={CreatePost} />
       {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
