@@ -1,3 +1,4 @@
+import colors from 'constant/color';
 import {StyleSheet} from 'react-native';
 
 const style = StyleSheet.create({
@@ -8,9 +9,7 @@ const style = StyleSheet.create({
     padding: 5,
     paddingLeft: 10,
     paddingRight: 10,
-    // borderWidth: 2,
-    // borderColor: 'red',
-    backgroundColor: '#FAF8F8',
+    backgroundColor: colors.secondary,
   },
   gap: {
     gap: 20,
