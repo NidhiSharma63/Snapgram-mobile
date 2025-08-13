@@ -1,17 +1,21 @@
+import useHeader from 'common/Header/hook';
 import style from 'common/Header/style';
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Logo from '../../assets/images/logo.svg';
 import LogoOut from '../../assets/images/logout.svg';
-import ProfilePlaceholderCopy from '../../assets/images/profile-placeholder copy.svg';
+import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 
 const Header = () => {
+  const {handleNavigateToProfilePage} = useHeader();
   return (
     <View style={style.header}>
       <Logo width={32} height={32} />
       <View style={[style.header, style.gap]}>
         <LogoOut width={28} height={28} />
-        <ProfilePlaceholderCopy width={32} height={32} />
+        <TouchableOpacity onPress={handleNavigateToProfilePage}>
+          <ProfilePlaceholder width={32} height={32} />
+        </TouchableOpacity>
       </View>
     </View>
   );
