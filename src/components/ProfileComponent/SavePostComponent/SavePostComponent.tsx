@@ -1,8 +1,13 @@
+import style from 'components/ProfileComponent/style';
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 const SavePostComponent = () => {
-  return <Text>SavePostComponent</Text>;
+  return (
+    <View style={style.saveTab}>
+      <Text>SavePostComponent</Text>
+    </View>
+  );
 };
 
 export default SavePostComponent;

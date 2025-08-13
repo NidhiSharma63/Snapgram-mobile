@@ -1,9 +1,10 @@
 import LikePostComponent from 'components/ProfileComponent/LikePostComponent/LikePostComponent';
 import SavePostComponent from 'components/ProfileComponent/SavePostComponent/SavePostComponent';
+import colors from 'constant/color';
 import React from 'react';
 import {useWindowDimensions} from 'react-native';
 
-import {SceneMap, TabView} from 'react-native-tab-view';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 
 const renderScene = SceneMap({
   likePost: LikePostComponent,
@@ -21,11 +22,28 @@ export default function ProfileTabs() {
 
   return (
     <TabView
-      style={{flex: 1}}
+      style={{flex: 1, boxShadow: 'none'}}
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={{width: layout.width}}
+      renderTabBar={props => (
+        <TabBar
+          {...props}
+          indicatorStyle={{
+            backgroundColor: '#FAF8F8',
+            elevation: 0, // Android
+            shadowColor: 'transparent', // iOS
+          }}
+          style={{
+            backgroundColor: '#FAF8F8',
+            elevation: 0, // Android
+            shadowColor: 'transparent', // iOS
+          }}
+          activeColor={colors.TextPrimary}
+          inactiveColor="gray"
+        />
+      )}
     />
   );
 }

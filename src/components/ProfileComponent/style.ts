@@ -43,5 +43,11 @@ const style = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
   },
+
+  // Top Tabs for Like & Save
+
+  saveTab: {
+    backgroundColor: 'red',
+  },
 });
 export default style;

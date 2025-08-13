@@ -7,9 +7,6 @@ import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 const Profile = () => {
   return (
     <>
-      {/* <View style={{flex: 1}}>
-        <ProfileTabs />
-      </View> */}
       <View style={style.container}>
         <ProfilePlaceholder />
         {/*  */}
