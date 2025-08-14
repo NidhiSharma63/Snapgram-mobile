@@ -1,5 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+// import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import colors from 'constant/color';
 import CreatePost from 'pages/CreatePostScreen';
@@ -50,18 +50,17 @@ function BottomTabs() {
 
 const Main = () => {
   return (
-    <NavigationContainer>
-      {/* <ProfileTabs /> */}
-      <SafeAreaView style={{flex: 1, paddingTop: 20, backgroundColor: 'black'}}>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* Bottom Tabs as main */}
-          {/* <Stack.Screen name="ProfileTab" component={ProfileTabs} /> */}
-          <Stack.Screen name="Tabs" component={BottomTabs} />
-          {/* Profile screen separate */}
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-        </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+    // <NavigationContainer>
+    <SafeAreaView style={{flex: 1, paddingTop: 20, backgroundColor: 'black'}}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        {/* Bottom Tabs as main */}
+        {/* <Stack.Screen name="ProfileTab" component={ProfileTabs} /> */}
+        <Stack.Screen name="Tabs" component={BottomTabs} />
+        {/* Profile screen separate */}
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </SafeAreaView>
+    // </NavigationContainer>
   );
 };
 
