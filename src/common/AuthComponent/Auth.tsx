@@ -9,7 +9,7 @@ const AuthComponent = ({loginScreen}: {loginScreen?: boolean}) => {
     <View style={style.container}>
       <Logo />
       <Text style={style.title}>
-        {loginScreen ? 'Login to your Account' : 'Sign Up'}
+        {loginScreen ? 'Login to your Account' : 'Create New Account'}
       </Text>
       <Text style={style.subtitle}>Please enter your account details</Text>
       {/* User name */}
