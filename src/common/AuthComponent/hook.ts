@@ -11,6 +11,10 @@ const useAuthComponent = () => {
     navigation.navigate('SignUp');
   }, [navigation]);
 
+
+  const handleLogin = useCallback(() => {
+    
+  }, []);
   return {handleNavigateToSignIn, handleNavigateToSignUp};
 };
 

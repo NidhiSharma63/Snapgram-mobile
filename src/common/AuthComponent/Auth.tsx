@@ -13,16 +13,19 @@ const AuthComponent = ({loginScreen}: {loginScreen?: boolean}) => {
       </Text>
       <Text style={style.subtitle}>Please enter your account details</Text>
       {/* User name */}
-      <View style={style.inputContainer}>
-        <Text style={style.label}>User Name</Text>
-        <TextInput style={style.input} placeholder="User Name" />
-      </View>
+      {!loginScreen && (
+        <View style={style.inputContainer}>
+          <Text style={style.label}>User Name</Text>
+          <TextInput style={style.input} placeholder="User Name" />
+        </View>
+      )}
       {/* bio */}
-
-      <View style={style.inputContainer}>
-        <Text style={style.label}>Bio</Text>
-        <TextInput style={style.input} placeholder="Bio" />
-      </View>
+      {!loginScreen && (
+        <View style={style.inputContainer}>
+          <Text style={style.label}>Bio</Text>
+          <TextInput style={style.input} placeholder="Bio" />
+        </View>
+      )}
 
       {/* Email */}
       <View style={style.inputContainer}>
