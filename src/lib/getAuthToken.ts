@@ -16,7 +16,6 @@ const getAuthToken = async () => {
   try {
     const parsed = JSON.parse(AUTH_TOKEN);
     const token = parsed?.tokens?.[0]?.token;
-    console.log(token, 'token');
     return token;
   } catch (e) {
     console.error('Error parsing USER_DETAILS:', e);

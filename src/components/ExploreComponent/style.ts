@@ -28,7 +28,7 @@ const style = StyleSheet.create({
     position: 'relative',
   },
   postImage: {
-    width: '100%',
+    width: 350,
     height: 200,
     backgroundColor: colors.TextPrimary,
     borderRadius: 10,

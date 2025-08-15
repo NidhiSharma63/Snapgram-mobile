@@ -28,7 +28,6 @@ async function axiosRequest({...options}) {
 
   // const AUTH_TOKEN = storedData ? JSON.parse(storedData).tokens[0].token : null;
   const AUTH_TOKEN = await getAuthToken();
-  console.log(AUTH_TOKEN, 'AUTH_TOKEN');
 
   if (AUTH_TOKEN) {
     axiosInstance.defaults.headers.Authorization = `Bearer ${AUTH_TOKEN}`;
