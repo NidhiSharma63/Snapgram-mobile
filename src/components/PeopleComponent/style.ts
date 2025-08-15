@@ -12,9 +12,9 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondary,
     padding: 20,
     borderRadius: 10,
-    width: '100%',
     alignItems: 'center',
     gap: 10,
+    width: 300,
   },
   button: {
     backgroundColor: '#0F172A',

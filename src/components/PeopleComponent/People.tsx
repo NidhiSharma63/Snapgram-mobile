@@ -1,23 +1,46 @@
 import style from 'components/PeopleComponent/style';
+import useAuth from 'hooks/useAuth';
 import React from 'react';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 
 const People = () => {
+  const {useGetAllUser} = useAuth();
+  const {data: usersData, isLoading} = useGetAllUser();
+
+  const renderUser = ({item}: {item: any}) => (
+    <View style={style.pplCard}>
+      {item.avatar ? (
+        <Image
+          source={{uri: item.avatar}}
+          style={{width: 50, height: 50, borderRadius: 25}}
+        />
+      ) : (
+        <ProfilePlaceholder width={50} height={50} />
+      )}
+
+      <Text style={style.textPrimary}>{item.username || 'Unknown'}</Text>
+      <Text style={style.textSecondary}>{item.email || 'No email'}</Text>
+
+      {/* Button */}
+      <TouchableOpacity style={style.button}>
+        <Text style={style.buttonText}>Follow</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
-    <ScrollView style={{flex: 1}}>
-      <View style={style.container}>
-        <View style={style.pplCard}>
-          <ProfilePlaceholder />
-          <Text style={style.textPrimary}>Nidhi</Text>
-          <Text style={style.textSecondary}>nidhisharma639593@gmail.com</Text>
-          {/* Button */}
-          <TouchableOpacity style={style.button}>
-            <Text style={style.buttonText}>Follow</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+    <FlatList
+      data={usersData || []}
+      keyExtractor={(item, index) => `${item.id}-${index}`}
+      renderItem={renderUser}
+      contentContainerStyle={style.container}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 
