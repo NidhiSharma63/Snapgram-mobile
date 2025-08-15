@@ -2,7 +2,10 @@ import useAuthComponent from 'common/AuthComponent/hook';
 import style from 'common/AuthComponent/style';
 import React from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
+import Loader from '../../assets/images/loader.svg';
 import Logo from '../../assets/images/logo.svg';
+
+
 const AuthComponent = ({
   loginScreen,
   setIsLoggedIn,
@@ -16,6 +19,8 @@ const AuthComponent = ({
     userCreds,
     handleGetCreds,
     handleLogin,
+    isLoading,
+    handleSignUp,
   } = useAuthComponent(setIsLoggedIn);
 
   return (
@@ -67,10 +72,21 @@ const AuthComponent = ({
         />
       </View>
       <View style={style.buttonContainer}>
-        <Pressable style={style.button} onPress={handleLogin}>
-          <Text style={style.buttonText}>Submit</Text>
-        </Pressable>
-        {loginScreen && (
+        {loginScreen ? (
+          <Pressable style={style.button} onPress={handleLogin}>
+            {isLoading ? (
+              <Loader style={{width: 2}} />
+            ) : (
+              <Text style={style.buttonText}>Submit</Text>
+            )}
+          </Pressable>
+        ) : (
+          <Pressable style={style.button} onPress={handleSignUp}>
+            <Text style={style.buttonText}>Create Account</Text>
+          </Pressable>
+        )}
+
+        {loginScreen && !isLoading && (
           <Pressable style={style.button} onPress={handleGetCreds}>
             <Text style={style.buttonText}>Get Creds</Text>
           </Pressable>

@@ -12,6 +12,8 @@ const useAuthComponent = (
   const {mutateAsync: mutateSignUp, isPending: isSignUpLoading} = useSignUp();
   const {mutateAsync: mutateSignIn, isPending: isSignInLoading} = useSignIn();
 
+  const isLoading = isSignUpLoading || isSignInLoading;
+
   const [userCreds, setUserCreds] = useState({
     username: '',
     email: '',
@@ -70,8 +72,7 @@ const useAuthComponent = (
     userCreds,
     handleLogin,
     handleSignUp,
-    isSignInLoading,
-    isSignUpLoading,
+    isLoading,
   };
 };
 
