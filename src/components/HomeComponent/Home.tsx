@@ -54,9 +54,10 @@ const Home = () => {
       </View>
 
       {/* Title */}
-      <Text style={style.TextPrimary}>{item.title}</Text>
+      {/* <Text style={style.TextPrimary}>{item.title}</Text>
       {/* caption */}
       <Text style={style.TextSecondary}>{item.caption}</Text>
+
       {/* image */}
       <Image
         style={style.postImg}

@@ -8,7 +8,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
-    gap: 10,
+    gap: 20,
     flex: 1,
   },
   postCard: {
@@ -37,7 +37,7 @@ const style = StyleSheet.create({
     color: colors.TextSecondary,
   },
   postImg: {
-    width: '100%',
+    width: 350,
     height: 500,
     borderRadius: 10,
     // backgroundColor: 'blue',
