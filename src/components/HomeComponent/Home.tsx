@@ -1,44 +1,106 @@
-import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import useHomeComponent from 'components/HomeComponent/hook';
+import {formatDateTime} from 'lib/FormateDate';
+import React, {useMemo} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import Like from '../../assets/images/like.svg';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 import Save from '../../assets/images/save.svg';
 import style from './style';
 
 const Home = () => {
-  return (
-    <ScrollView style={{flex: 1}}>
-      <View style={style.container}>
-        <Text style={{marginTop: 10}}>Home Feed</Text>
+  const {data, isPostLoading, isFetchingNextPage, fetchNextPage, hasNextPage} =
+    useHomeComponent();
 
-        {/* Repeatable post card */}
-        {[1, 2, 3, 4, 5].map((_, index) => (
-          <View key={index} style={style.postCard}>
-            {/* post card header */}
-            <View style={style.postCardHeader}>
-              <ProfilePlaceholder width={32} height={32} />
-              <View style={style.headerMetadata}>
-                <Text style={style.TextPrimary}>Nidhi</Text>
-                <Text style={style.TextSecondary}>
-                  Jun 15, 2025 at 3:39 PM - Modinagar
-                </Text>
-              </View>
-            </View>
+  // Flatten paginated data into a single array
+  const posts = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    return data.pages.flatMap(page => page.data || []);
+  }, [data]);
 
-            {/* Title */}
-            <Text style={style.TextPrimary}>Title</Text>
-            {/* caption */}
-            <Text style={style.TextSecondary}>Caption</Text>
-            {/* image */}
-            <View style={style.postImg} />
-            {/* actions */}
-            <View style={style.actions}>
-              <Like />
-              <Save />
-            </View>
-          </View>
-        ))}
+  const renderPostCard = ({item}: {item: any}) => (
+    <View style={style.postCard}>
+      {/* post card header */}
+      <View style={style.postCardHeader}>
+        {
+          // If there's a profile picture, show it
+          item.userAvatar ? (
+            <Image
+              style={style.userAvatar}
+              source={{
+                uri: item.userAvatar,
+              }}
+            />
+          ) : (
+            <ProfilePlaceholder width={32} height={32} />
+          )
+        }
+
+        <View style={style.headerMetadata}>
+          <Text style={style.TextPrimary}>{item.author || 'Unknown'}</Text>
+          <Text style={style.TextSecondary}>
+            {formatDateTime(item.createdAt) || 'Unknown date'} -{' '}
+            {item.location?.join(', ') || 'Unknown location'}
+          </Text>
+        </View>
       </View>
+
+      {/* Title */}
+      <Text style={style.TextPrimary}>{item.title}</Text>
+      {/* caption */}
+      <Text style={style.TextSecondary}>{item.caption}</Text>
+      {/* image */}
+      <Image
+        style={style.postImg}
+        source={{
+          uri: item.file,
+        }}
+      />
+      {/* actions */}
+      <View style={style.actions}>
+        <Like />
+        <Save />
+      </View>
+    </View>
+  );
+
+  if (isPostLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView>
+      <FlatList
+        data={posts}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
+        renderItem={renderPostCard}
+        contentContainerStyle={style.container}
+        ListHeaderComponent={<Text style={{marginTop: 10}}>Home Feed</Text>}
+        showsVerticalScrollIndicator={false}
+        onEndReached={() => {
+          if (hasNextPage) {
+            fetchNextPage();
+          }
+        }}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={
+          isFetchingNextPage ? (
+            <ActivityIndicator style={{marginVertical: 10}} />
+          ) : null
+        }
+      />
     </ScrollView>
   );
 };

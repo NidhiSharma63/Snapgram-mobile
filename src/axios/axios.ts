@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { getValueFromLS } from '@/lib/utils';
 import axios from 'axios';
 import {AppConstants} from 'constant/keys';
+import getAuthToken from 'lib/getAuthToken';
 import Config from 'react-native-config';
 
 interface IPayload {
@@ -26,7 +27,8 @@ async function axiosRequest({...options}) {
   // const storedData = getValueFromLS(AppConstants.USER_DETAILS);
 
   // const AUTH_TOKEN = storedData ? JSON.parse(storedData).tokens[0].token : null;
-  const AUTH_TOKEN = await AsyncStorage.getItem('authToken');
+  const AUTH_TOKEN = await getAuthToken();
+  console.log(AUTH_TOKEN, 'AUTH_TOKEN');
 
   if (AUTH_TOKEN) {
     axiosInstance.defaults.headers.Authorization = `Bearer ${AUTH_TOKEN}`;

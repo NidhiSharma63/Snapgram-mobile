@@ -40,7 +40,7 @@ const style = StyleSheet.create({
     width: '100%',
     height: 500,
     borderRadius: 10,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
   },
   actions: {
     flexDirection: 'row',
@@ -48,6 +48,12 @@ const style = StyleSheet.create({
     gap: 10,
     justifyContent: 'space-between',
     width: '100%',
+  },
+  userAvatar: {
+    borderRadius: 50,
+    width: 32,
+    height: 32,
+    marginRight: 10,
   },
 });
 
