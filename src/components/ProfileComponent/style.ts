@@ -47,7 +47,33 @@ const style = StyleSheet.create({
   // Top Tabs for Like & Save
 
   saveTab: {
-    backgroundColor: 'red',
+    flexDirection: 'column',
+    gap: 10,
+    alignItems: 'center',
+  },
+  explorePost: {
+    width: '100%',
+    backgroundColor: colors.secondary,
+    padding: 10,
+    borderRadius: 10,
+    position: 'relative',
+  },
+  postImage: {
+    width: 390,
+    height: 200,
+    // backgroundColor: colors.TextPrimary,
+    borderRadius: 10,
+  },
+  userDataAbsolute: {
+    position: 'absolute',
+    left: 30,
+    flexDirection: 'row',
+    gap: 10,
+    bottom: 20,
+  },
+  userName: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 export default style;
