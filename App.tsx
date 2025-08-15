@@ -46,7 +46,7 @@ export default function App() {
         <RootStack.Navigator screenOptions={{headerShown: false}}>
           {isLoggedIn ? (
             <RootStack.Screen name="MainTabs">
-              {() => <Main />}
+              {() => <Main setIsLoggedIn={setIsLoggedIn} />}
             </RootStack.Screen>
           ) : (
             <RootStack.Screen name="AuthStack">

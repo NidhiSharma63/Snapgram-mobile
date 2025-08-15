@@ -3,10 +3,14 @@ import Home from 'components/HomeComponent/Home';
 import React from 'react';
 import {View} from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <View style={{flex: 1}}>
-      <Header />
+      <Header setIsLoggedIn={setIsLoggedIn} />
       <Home />
     </View>
   );

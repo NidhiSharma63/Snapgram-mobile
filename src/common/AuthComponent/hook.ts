@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {AppConstants} from 'constant/keys';
 import useAuth from 'hooks/useAuth';
 import {useCallback, useState} from 'react';
 
@@ -43,25 +44,24 @@ const useAuthComponent = (
   const handleLogin = useCallback(async () => {
     try {
       const dataSignIn = await mutateSignIn(userCreds);
-      await AsyncStorage.setItem('userData', JSON.stringify(dataSignIn));
-        setIsLoggedIn(true);
-
-      // navigation.navigate('Tabs', {screen: 'Home'});
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{name: 'Tabs'}],
-      // });
+      await AsyncStorage.setItem(
+        AppConstants.USER_DETAILS,
+        JSON.stringify(dataSignIn),
+      );
+      setIsLoggedIn(true);
     } catch (error) {
       console.error(error);
     }
-  }, [userCreds, mutateSignIn, navigation]);
+  }, [userCreds, mutateSignIn, setIsLoggedIn]);
 
   const handleSignUp = useCallback(async () => {
     const dataSignIn = await mutateSignUp(userCreds);
-    await AsyncStorage.setItem('userData', JSON.stringify(dataSignIn));
-    // navigation.navigate('Tabs', {screen: 'Home'});
+    await AsyncStorage.setItem(
+      AppConstants.USER_DETAILS,
+      JSON.stringify(dataSignIn),
+    );
     setIsLoggedIn(true);
-  }, [userCreds, mutateSignUp, navigation]);
+  }, [userCreds, mutateSignUp, setIsLoggedIn]);
 
   return {
     handleNavigateToSignIn,
