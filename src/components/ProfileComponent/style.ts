@@ -50,6 +50,7 @@ const style = StyleSheet.create({
     flexDirection: 'column',
     gap: 10,
     alignItems: 'center',
+    marginBottom: 20,
   },
   explorePost: {
     width: '100%',

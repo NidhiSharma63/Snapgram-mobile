@@ -1,18 +1,17 @@
 import useAuth from 'hooks/useAuth';
+import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
-import useSavePost from 'hooks/useSavePost';
 
-const useSavePostComponent = () => {
-  const {useGetAllSavePost} = useSavePost();
-  const {data: savePosts, isPending: userSavedPostLoading} =
-    useGetAllSavePost();
+const useLikePostComponent = () => {
+  const {useGetAllLike} = useLikePost();
+  const {data: likePost, isPending: userLikePostPending} = useGetAllLike();
   const {useGetPostByIds} = usePost();
   const {data: posts, isLoading: isPostLoading} = useGetPostByIds(
-    savePosts?.[0]?.postId,
+    likePost?.[0]?.postId,
   );
   const {useGetAllUser} = useAuth();
   const {data: usersData, isFetching: isLoadinUser} = useGetAllUser();
-  const isLoading = userSavedPostLoading || isLoadinUser || isPostLoading;
+  const isLoading = userLikePostPending || isLoadinUser || isPostLoading;
   return {
     usersData,
     posts,
@@ -20,4 +19,4 @@ const useSavePostComponent = () => {
   };
 };
 
-export default useSavePostComponent;
+export default useLikePostComponent;
