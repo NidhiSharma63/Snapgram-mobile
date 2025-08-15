@@ -5,18 +5,34 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Pressable,
   ScrollView,
   Text,
   View,
 } from 'react-native';
 import Like from '../../assets/images/like.svg';
+import Liked from '../../assets/images/liked.svg';
+
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 import Save from '../../assets/images/save.svg';
+import Saved from '../../assets/images/saved.svg';
+
 import style from './style';
 
 const Home = () => {
-  const {data, isPostLoading, isFetchingNextPage, fetchNextPage, hasNextPage} =
-    useHomeComponent();
+  const {
+    data,
+    isPostLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    saveData,
+    likeData,
+    handleAddLike,
+    handleAddSave,
+    handleRemoveLike,
+    handleRemoveSave,
+  } = useHomeComponent();
 
   // Flatten paginated data into a single array
   const posts = useMemo(() => {
@@ -67,8 +83,24 @@ const Home = () => {
       />
       {/* actions */}
       <View style={style.actions}>
-        <Like />
-        <Save />
+        {likeData?.[0]?.postId.includes(item._id) ? (
+          <Pressable onPress={() => handleRemoveLike(item._id)}>
+            <Liked />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => handleAddLike(item._id)}>
+            <Like />
+          </Pressable>
+        )}
+        {saveData?.[0]?.postId.includes(item._id) ? (
+          <Pressable onPress={() => handleRemoveSave(item._id)}>
+            <Saved />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => handleAddSave(item._id)}>
+            <Save />
+          </Pressable>
+        )}
       </View>
     </View>
   );
@@ -85,7 +117,7 @@ const Home = () => {
     <ScrollView>
       <FlatList
         data={posts}
-        keyExtractor={(item, index) => `${item.id}-${index}`}
+        keyExtractor={(item, index) => `${item._id}-${index}`}
         renderItem={renderPostCard}
         contentContainerStyle={style.container}
         ListHeaderComponent={<Text style={{marginTop: 10}}>Home Feed</Text>}

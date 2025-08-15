@@ -1,4 +1,7 @@
+import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
+import useSavePost from 'hooks/useSavePost';
+import {useCallback} from 'react';
 
 const useHomeComponent = () => {
   const {useGetAllPost} = usePost();
@@ -9,11 +12,56 @@ const useHomeComponent = () => {
     fetchNextPage,
   } = useGetAllPost();
 
-  console.log(data, isPostLoading, isFetchingNextPage);
+  const {useAddSave, useGetAllSavePost, useRemoveSave} = useSavePost();
+  const {useAddLike, useGetAllLike, useRemoveLike} = useLikePost();
+  const {data: saveData} = useGetAllSavePost();
+  const {data: likeData} = useGetAllLike();
+
+  // add like and save post
+  const {mutateAsync: addLike} = useAddLike();
+  const {mutateAsync: addSave} = useAddSave();
+  // remove like and remove save post
+  const {mutateAsync: removeLike} = useRemoveLike();
+  const {mutateAsync: removeSave} = useRemoveSave();
+
+  const handleAddLike = useCallback(
+    (postId: string) => {
+      addLike({postId: postId});
+    },
+    [addLike],
+  );
+  const handleAddSave = useCallback(
+    (postId: string) => {
+      addSave({postId: postId});
+    },
+    [addSave],
+  );
+
+  const handleRemoveLike = useCallback(
+    (postId: string) => {
+      removeLike({postId: postId});
+    },
+    [removeLike],
+  );
+
+  const handleRemoveSave = useCallback(
+    (postId: string) => {
+      removeSave({postId: postId});
+    },
+    [removeSave],
+  );
+
+  // console.log(data, isPostLoading, isFetchingNextPage);
   return {
     data,
     isPostLoading,
     isFetchingNextPage,
+    saveData,
+    likeData,
+    handleAddLike,
+    handleAddSave,
+    handleRemoveLike,
+    handleRemoveSave,
   };
 };
 
