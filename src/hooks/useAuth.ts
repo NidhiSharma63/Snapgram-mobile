@@ -8,6 +8,7 @@ import {queryClient} from '../../App';
 
 function useAuth() {
   // sign up
+  // const navigation = useNavigation();
 
   function useSignUp() {
     return useMutation({
@@ -34,6 +35,9 @@ function useAuth() {
           });
         }
       },
+      // onSuccess() {
+      //   navigation.navigate('Main', {screen: 'Home'});
+      // },
     });
   }
 
@@ -60,6 +64,9 @@ function useAuth() {
           });
         }
       },
+      // onSuccess() {
+      //   navigation.navigate('Main', {screen: 'Home'});
+      // },
     });
   }
 

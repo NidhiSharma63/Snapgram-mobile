@@ -3,8 +3,21 @@ import style from 'common/AuthComponent/style';
 import React from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
 import Logo from '../../assets/images/logo.svg';
-const AuthComponent = ({loginScreen}: {loginScreen?: boolean}) => {
-  const {handleNavigateToSignUp, handleNavigateToSignIn} = useAuthComponent();
+const AuthComponent = ({
+  loginScreen,
+  setIsLoggedIn,
+}: {
+  loginScreen?: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const {
+    handleNavigateToSignUp,
+    handleNavigateToSignIn,
+    userCreds,
+    handleGetCreds,
+    handleLogin,
+  } = useAuthComponent(setIsLoggedIn);
+
   return (
     <View style={style.container}>
       <Logo />
@@ -16,33 +29,49 @@ const AuthComponent = ({loginScreen}: {loginScreen?: boolean}) => {
       {!loginScreen && (
         <View style={style.inputContainer}>
           <Text style={style.label}>User Name</Text>
-          <TextInput style={style.input} placeholder="User Name" />
+          <TextInput
+            value={userCreds.username}
+            style={style.input}
+            placeholder="User Name"
+          />
         </View>
       )}
       {/* bio */}
       {!loginScreen && (
         <View style={style.inputContainer}>
           <Text style={style.label}>Bio</Text>
-          <TextInput style={style.input} placeholder="Bio" />
+          <TextInput
+            value={userCreds.bio}
+            style={style.input}
+            placeholder="Bio"
+          />
         </View>
       )}
 
       {/* Email */}
       <View style={style.inputContainer}>
         <Text style={style.label}>Email</Text>
-        <TextInput style={style.input} placeholder="Email" />
+        <TextInput
+          value={userCreds.email}
+          style={style.input}
+          placeholder="Email"
+        />
       </View>
       {/* Password */}
       <View style={style.inputContainer}>
         <Text style={style.label}>Password</Text>
-        <TextInput style={style.input} placeholder="password" />
+        <TextInput
+          value={userCreds.password}
+          style={style.input}
+          placeholder="password"
+        />
       </View>
       <View style={style.buttonContainer}>
-        <Pressable style={style.button}>
+        <Pressable style={style.button} onPress={handleLogin}>
           <Text style={style.buttonText}>Submit</Text>
         </Pressable>
         {loginScreen && (
-          <Pressable style={style.button}>
+          <Pressable style={style.button} onPress={handleGetCreds}>
             <Text style={style.buttonText}>Get Creds</Text>
           </Pressable>
         )}

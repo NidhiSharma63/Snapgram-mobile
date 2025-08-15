@@ -4,11 +4,19 @@ import SignUpScreen from 'pages/SignUpScreen';
 import React from 'react';
 const Stack = createNativeStackNavigator();
 
-export default function AuthStack() {
+export default function AuthStack({
+  setIsLoggedIn,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="SignIn" component={SignInScreen} />
-      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="SignIn">
+        {() => <SignInScreen setIsLoggedIn={setIsLoggedIn} />}
+      </Stack.Screen>
+      <Stack.Screen name="SignUp">
+        {() => <SignUpScreen setIsLoggedIn={setIsLoggedIn} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }

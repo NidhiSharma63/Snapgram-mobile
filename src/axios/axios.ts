@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage/lib/typescript/AsyncStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { getValueFromLS } from '@/lib/utils';
 import axios from 'axios';
 import {AppConstants} from 'constant/keys';

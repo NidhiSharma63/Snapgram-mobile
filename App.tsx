@@ -1,14 +1,15 @@
-// App.tsx
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
-import {QueryClient} from '@tanstack/react-query';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import AuthStack from 'AuthStack';
 import Main from 'main';
 import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 
-// Create a client
+const RootStack = createNativeStackNavigator();
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -41,9 +42,20 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <Main /> : <AuthStack />}
-      {/* ... */}
-      <Toast position="bottom" bottomOffset={20} />
+      <QueryClientProvider client={queryClient}>
+        <RootStack.Navigator screenOptions={{headerShown: false}}>
+          {isLoggedIn ? (
+            <RootStack.Screen name="MainTabs">
+              {() => <Main />}
+            </RootStack.Screen>
+          ) : (
+            <RootStack.Screen name="AuthStack">
+              {() => <AuthStack setIsLoggedIn={setIsLoggedIn} />}
+            </RootStack.Screen>
+          )}
+        </RootStack.Navigator>
+        <Toast />
+      </QueryClientProvider>
     </NavigationContainer>
   );
 }
