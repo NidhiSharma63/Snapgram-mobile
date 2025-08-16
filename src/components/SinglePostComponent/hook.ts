@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
@@ -5,8 +6,9 @@ import useSavePost from 'hooks/useSavePost';
 import {useCallback} from 'react';
 
 const useSinglePostComponent = (id: string) => {
-  const {useGetPostById} = usePost();
+  const {useGetPostById, useGetAllPostStatic} = usePost();
   const {data, isPending: isPostPending} = useGetPostById(id);
+  const {data: staticPost} = useGetAllPostStatic();
   const {useGetAllUser} = useAuth();
   const {data: usersData} = useGetAllUser();
   const findCurrentUser = usersData?.find(user => user?._id === data?.userId);
@@ -22,6 +24,8 @@ const useSinglePostComponent = (id: string) => {
   // remove like and remove save post
   const {mutateAsync: removeLike} = useRemoveLike();
   const {mutateAsync: removeSave} = useRemoveSave();
+
+  const navigation = useNavigation();
 
   const handleAddLike = useCallback(
     (postId: string) => {
@@ -49,6 +53,10 @@ const useSinglePostComponent = (id: string) => {
     },
     [removeSave],
   );
+
+  const handleNavigateToSinglePost = (id: string) => {
+    navigation.navigate('SinglePost', {id});
+  };
   return {
     data,
     isPostPending,
@@ -60,6 +68,8 @@ const useSinglePostComponent = (id: string) => {
     handleAddSave,
     handleRemoveLike,
     handleRemoveSave,
+    handleNavigateToSinglePost,
+    staticPost,
   };
 };
 

@@ -53,6 +53,30 @@ const style = StyleSheet.create({
     height: 32,
     marginRight: 10,
   },
+  explorePost: {
+    width: '100%',
+    backgroundColor: colors.secondary,
+    padding: 10,
+    borderRadius: 10,
+    position: 'relative',
+  },
+  postImage: {
+    width: 350,
+    height: 200,
+    backgroundColor: colors.TextPrimary,
+    borderRadius: 10,
+  },
+  userData: {
+    position: 'absolute',
+    left: 30,
+    flexDirection: 'row',
+    gap: 10,
+    bottom: 20,
+  },
+  textPrimary: {
+    color: '#fff',
+    fontSize: 16,
+  },
 });
 
 export default style;
