@@ -7,6 +7,7 @@ import Explore from 'pages/Explore';
 import HomeScreen from 'pages/HomeScreen';
 import PeopleScreen from 'pages/PeopleScreen';
 import ProfileScreen from 'pages/ProfileScreen'; // ✅ New screen
+import SinglePostScreen from 'pages/SinglePostScreen';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import GalleryAdd from '../src/assets/images/gallery-add.svg';
@@ -72,6 +73,7 @@ const Main = ({
         />
         {/* Profile screen separate */}
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="SinglePost" component={SinglePostScreen} />
       </Stack.Navigator>
     </SafeAreaView>
     // </NavigationContainer>
