@@ -3,7 +3,7 @@ import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
 import useSavePost from 'hooks/useSavePost';
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 
 const useSinglePostComponent = (id: string) => {
   const {useGetPostById, useGetAllPostStatic} = usePost();
@@ -26,6 +26,17 @@ const useSinglePostComponent = (id: string) => {
   const {mutateAsync: removeSave} = useRemoveSave();
 
   const navigation = useNavigation();
+  /**
+   * filter static post from post means i don't want to include that post which is already present in
+   * get post by id
+   */
+
+  const filteredStaticPost = useMemo(() => {
+    if (staticPost) {
+      return staticPost?.filter(post => post?._id !== data?._id);
+    }
+    return [];
+  }, [staticPost, data]);
 
   const handleAddLike = useCallback(
     (postId: string) => {
@@ -69,7 +80,7 @@ const useSinglePostComponent = (id: string) => {
     handleRemoveLike,
     handleRemoveSave,
     handleNavigateToSinglePost,
-    staticPost,
+    staticPost: filteredStaticPost,
   };
 };
 

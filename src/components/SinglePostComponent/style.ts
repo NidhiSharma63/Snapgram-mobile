@@ -9,7 +9,7 @@ const style = StyleSheet.create({
     padding: 10,
   },
   postCard: {
-    padding: 10,
+    // padding: 10,
     flexDirection: 'column',
     gap: 10,
     alignItems: 'flex-start',
