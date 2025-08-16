@@ -55,7 +55,6 @@ const useAuthComponent = (
 
   const handleLogin = useCallback(async () => {
     try {
-      console.log('userCreds', userCreds);
       const dataSignIn = await mutateSignIn(userCreds);
       await AsyncStorage.setItem(
         AppConstants.USER_DETAILS,
@@ -68,14 +67,17 @@ const useAuthComponent = (
   }, [userCreds, mutateSignIn, setIsLoggedIn]);
 
   const handleSignUp = useCallback(async () => {
-    console.log('userCreds', userCreds);
-
-    const dataSignIn = await mutateSignUp(userCreds);
-    await AsyncStorage.setItem(
-      AppConstants.USER_DETAILS,
-      JSON.stringify(dataSignIn),
-    );
-    setIsLoggedIn(true);
+    try {
+      const dataSignIn = await mutateSignUp(userCreds);
+      await AsyncStorage.setItem(
+        AppConstants.USER_DETAILS,
+        JSON.stringify(dataSignIn),
+      );
+      console.log('userCreds', dataSignIn);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error(error);
+    }
   }, [userCreds, mutateSignUp, setIsLoggedIn]);
 
   return {

@@ -87,7 +87,7 @@ const AuthComponent = ({
           </Pressable>
         ) : (
           <Pressable style={style.button} onPress={handleSignUp}>
-            <Text style={style.buttonText}>Create Account</Text>
+            <Text style={style.buttonText}>Submit</Text>
           </Pressable>
         )}
 
