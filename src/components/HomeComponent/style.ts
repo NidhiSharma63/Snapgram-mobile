@@ -11,7 +11,8 @@ const style = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     gap: 20,
-    flex: 1,
+    marginTop: 10,  
+    // flex: 1,
   },
   postCard: {
     padding: 10,

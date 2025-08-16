@@ -11,6 +11,7 @@ const useHomeComponent = () => {
     isPending: isPostLoading,
     isFetchingNextPage,
     fetchNextPage,
+    hasNextPage,
   } = useGetAllPost();
 
   const {useGetAllUser} = useAuth();
@@ -67,6 +68,8 @@ const useHomeComponent = () => {
     handleAddSave,
     handleRemoveLike,
     handleRemoveSave,
+    fetchNextPage,
+    hasNextPage,
   };
 };
 

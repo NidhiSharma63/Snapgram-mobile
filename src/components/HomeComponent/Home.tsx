@@ -6,7 +6,6 @@ import {
   FlatList,
   Image,
   Pressable,
-  ScrollView,
   Text,
   View,
 } from 'react-native';
@@ -120,27 +119,28 @@ const Home = () => {
   }
 
   return (
-    <ScrollView>
-      <FlatList
-        data={posts}
-        keyExtractor={(item, index) => `${item._id}-${index}`}
-        renderItem={renderPostCard}
-        contentContainerStyle={style.container}
-        ListHeaderComponent={<Text style={{marginTop: 10}}>Home Feed</Text>}
-        showsVerticalScrollIndicator={false}
-        onEndReached={() => {
-          if (hasNextPage) {
-            fetchNextPage();
-          }
-        }}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={
-          isFetchingNextPage ? (
-            <ActivityIndicator style={{marginVertical: 10}} />
-          ) : null
+    // <ScrollView>
+    <FlatList
+      data={posts}
+      keyExtractor={(item, index) => `${item._id}-${index}`}
+      renderItem={renderPostCard}
+      contentContainerStyle={style.container}
+      // ListHeaderComponent={<Text style={{marginTop: 10}}>Home Feed</Text>}
+      showsVerticalScrollIndicator={false}
+      onEndReached={() => {
+        console.log('end reached', hasNextPage);
+        if (hasNextPage) {
+          fetchNextPage();
         }
-      />
-    </ScrollView>
+      }}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={
+        isFetchingNextPage ? (
+          <ActivityIndicator style={{marginVertical: 10}} />
+        ) : null
+      }
+    />
+    // </ScrollView>
   );
 };
 

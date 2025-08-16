@@ -8,7 +8,9 @@ const HomeScreen = () => {
   return (
     <View style={{flex: 1}}>
       <CustomHeader rightElement={<Logo width={32} height={32} />} />
-      <Home />
+      <View style={{flex: 1}}>
+        <Home />
+      </View>
     </View>
   );
 };
