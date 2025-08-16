@@ -1,14 +1,22 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import CustomHeader from 'common/Header/CustomHeader';
 import Profile from 'components/ProfileComponent/Profile';
+import {AppConstants} from 'constant/keys';
 import React from 'react';
 import {Pressable, View} from 'react-native';
 import Back from '../assets/images/back.svg';
+import Logout from '../assets/images/logout.svg';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const handleNavigateToBackScreen = () => {
     navigation.goBack();
+  };
+  const handleNavigateToLoginScreen = async () => {
+    navigation.navigate('Login');
+    // remove token
+    await AsyncStorage.removeItem(AppConstants.USER_DETAILS);
   };
   return (
     <View style={{flex: 1}}>
@@ -16,6 +24,11 @@ const ProfileScreen = () => {
         rightElement={
           <Pressable onPress={handleNavigateToBackScreen}>
             <Back width={32} height={32} />
+          </Pressable>
+        }
+        leftElement={
+          <Pressable onPress={handleNavigateToLoginScreen}>
+            <Logout width={32} height={32} />
           </Pressable>
         }
       />

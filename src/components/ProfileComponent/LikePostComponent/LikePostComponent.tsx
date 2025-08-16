@@ -11,22 +11,22 @@ const SavePostComponent = () => {
   const renderPost = ({item}: {item: any}) => {
     const findCurrentUser = usersData?.find(user => user?._id === item?.userId);
     return (
-      <Pressable onPress={() => handleNavigateToSinglePost(item._id)}>
+      <Pressable onPress={() => handleNavigateToSinglePost(item?._id)}>
         <View style={style.explorePost}>
           {/* Image */}
-          <Image source={{uri: item.file}} style={style.postImage} />
+          <Image source={{uri: item?.file}} style={style.postImage} />
           {/* user data */}
           <View style={style.userDataAbsolute}>
-            {item.userAvatar ? (
+            {item?.userAvatar ? (
               <Image
-                source={{uri: item.userAvatar}}
+                source={{uri: item?.userAvatar}}
                 style={{width: 24, height: 24, borderRadius: 12}}
               />
             ) : (
               <ProfilePlaceholder width={24} height={24} />
             )}
             <Text style={style.userName}>
-              {findCurrentUser.username || 'Unknown'}
+              {findCurrentUser?.username || 'Unknown'}
             </Text>
           </View>
         </View>
@@ -42,7 +42,7 @@ const SavePostComponent = () => {
     <View style={style.saveTab}>
       <FlatList
         data={posts || []}
-        keyExtractor={(item, index) => `${item._id}-${index}`}
+        keyExtractor={(item, index) => `${item?._id}-${index}`}
         renderItem={renderPost}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 20}}

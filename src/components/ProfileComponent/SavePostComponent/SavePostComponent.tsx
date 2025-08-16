@@ -14,12 +14,12 @@ const SavePostComponent = () => {
       <Pressable onPress={() => handleNavigateToSinglePost(item._id)}>
         <View style={style.explorePost}>
           {/* Image */}
-          <Image source={{uri: item.file}} style={style.postImage} />
+          <Image source={{uri: item?.file}} style={style.postImage} />
           {/* user data */}
           <View style={style.userDataAbsolute}>
-            {item.userAvatar ? (
+            {item?.userAvatar ? (
               <Image
-                source={{uri: item.userAvatar}}
+                source={{uri: item?.userAvatar}}
                 style={{width: 24, height: 24, borderRadius: 12}}
               />
             ) : (
@@ -42,7 +42,7 @@ const SavePostComponent = () => {
     <View style={style.saveTab}>
       <FlatList
         data={posts || []}
-        keyExtractor={(item, index) => `${item._id}-${index}`}
+        keyExtractor={(item, index) => `${item?._id}-${index}`}
         renderItem={renderPost}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 20}}
