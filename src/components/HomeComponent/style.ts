@@ -1,5 +1,7 @@
 import colors from 'constant/color';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   container: {
@@ -37,10 +39,13 @@ const style = StyleSheet.create({
     color: colors.TextSecondary,
   },
   postImg: {
-    width: 350,
+    // width: 350,
     height: 500,
-    borderRadius: 10,
     // backgroundColor: 'blue',
+    width: screenWidth - 40,
+    borderRadius: 10,
+    alignSelf: 'center',
+    objectFit: 'contain',
   },
   actions: {
     flexDirection: 'row',
