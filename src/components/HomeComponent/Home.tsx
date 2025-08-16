@@ -32,6 +32,7 @@ const Home = () => {
     handleAddSave,
     handleRemoveLike,
     handleRemoveSave,
+    usersData,
   } = useHomeComponent();
 
   // Flatten paginated data into a single array
@@ -42,68 +43,73 @@ const Home = () => {
     return data.pages.flatMap(page => page.data || []);
   }, [data]);
 
-  const renderPostCard = ({item}: {item: any}) => (
-    <View style={style.postCard}>
-      {/* post card header */}
-      <View style={style.postCardHeader}>
-        {
-          // If there's a profile picture, show it
-          item.userAvatar ? (
-            <Image
-              style={style.userAvatar}
-              source={{
-                uri: item.userAvatar,
-              }}
-            />
-          ) : (
-            <ProfilePlaceholder width={32} height={32} />
-          )
-        }
+  const renderPostCard = ({item}: {item: any}) => {
+    const findCurrentUser = usersData?.find(user => user?._id === item?.userId);
+    return (
+      <View style={style.postCard}>
+        {/* post card header */}
+        <View style={style.postCardHeader}>
+          {
+            // If there's a profile picture, show it
+            findCurrentUser?.avatar ? (
+              <Image
+                style={style.userAvatar}
+                source={{
+                  uri: findCurrentUser?.avatar,
+                }}
+              />
+            ) : (
+              <ProfilePlaceholder width={32} height={32} />
+            )
+          }
 
-        <View style={style.headerMetadata}>
-          <Text style={style.TextPrimary}>{item.author || 'Unknown'}</Text>
-          <Text style={style.TextSecondary}>
-            {formatDateTime(item.createdAt) || 'Unknown date'} -{' '}
-            {item.location?.join(', ') || 'Unknown location'}
-          </Text>
+          <View style={style.headerMetadata}>
+            <Text style={style.TextPrimary}>
+              {findCurrentUser?.username || 'Unknown'}
+            </Text>
+            <Text style={style.TextSecondary}>
+              {formatDateTime(item.createdAt) || 'Unknown date'} -{' '}
+              {item.location?.join(', ') || 'Unknown location'}
+            </Text>
+          </View>
+        </View>
+
+        {/* Title */}
+        {/* <Text style={style.TextPrimary}>{item.title}</Text>
+      {/* caption */}
+        <Text style={style.TextSecondary}>{item.caption}</Text>
+
+        {/* image */}
+        <Image
+          style={style.postImg}
+          source={{
+            uri: item.file,
+          }}
+        />
+        {/* actions */}
+        <View style={style.actions}>
+          {likeData?.[0]?.postId.includes(item._id) ? (
+            <Pressable onPress={() => handleRemoveLike(item._id)}>
+              <Liked />
+            </Pressable>
+          ) : (
+            <Pressable onPress={() => handleAddLike(item._id)}>
+              <Like />
+            </Pressable>
+          )}
+          {saveData?.[0]?.postId.includes(item._id) ? (
+            <Pressable onPress={() => handleRemoveSave(item._id)}>
+              <Saved />
+            </Pressable>
+          ) : (
+            <Pressable onPress={() => handleAddSave(item._id)}>
+              <Save />
+            </Pressable>
+          )}
         </View>
       </View>
-
-      {/* Title */}
-      {/* <Text style={style.TextPrimary}>{item.title}</Text>
-      {/* caption */}
-      <Text style={style.TextSecondary}>{item.caption}</Text>
-
-      {/* image */}
-      <Image
-        style={style.postImg}
-        source={{
-          uri: item.file,
-        }}
-      />
-      {/* actions */}
-      <View style={style.actions}>
-        {likeData?.[0]?.postId.includes(item._id) ? (
-          <Pressable onPress={() => handleRemoveLike(item._id)}>
-            <Liked />
-          </Pressable>
-        ) : (
-          <Pressable onPress={() => handleAddLike(item._id)}>
-            <Like />
-          </Pressable>
-        )}
-        {saveData?.[0]?.postId.includes(item._id) ? (
-          <Pressable onPress={() => handleRemoveSave(item._id)}>
-            <Saved />
-          </Pressable>
-        ) : (
-          <Pressable onPress={() => handleAddSave(item._id)}>
-            <Save />
-          </Pressable>
-        )}
-      </View>
-    </View>
-  );
+    );
+  };
 
   if (isPostLoading) {
     return (

@@ -1,3 +1,4 @@
+import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
 import useSavePost from 'hooks/useSavePost';
@@ -11,6 +12,9 @@ const useHomeComponent = () => {
     isFetchingNextPage,
     fetchNextPage,
   } = useGetAllPost();
+
+  const {useGetAllUser} = useAuth();
+  const {data: usersData} = useGetAllUser();
 
   const {useAddSave, useGetAllSavePost, useRemoveSave} = useSavePost();
   const {useAddLike, useGetAllLike, useRemoveLike} = useLikePost();
@@ -58,6 +62,7 @@ const useHomeComponent = () => {
     isFetchingNextPage,
     saveData,
     likeData,
+    usersData,
     handleAddLike,
     handleAddSave,
     handleRemoveLike,
