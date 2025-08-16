@@ -18,11 +18,7 @@ import Wallpaper from '../src/assets/images/wallpaper.svg';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function BottomTabs({
-  setIsLoggedIn,
-}: {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function BottomTabs() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -45,10 +41,7 @@ function BottomTabs({
         tabBarActiveTintColor: colors.Primary,
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen
-        name="Home"
-        component={() => <HomeScreen setIsLoggedIn={setIsLoggedIn} />}
-      />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="People" component={PeopleScreen} />
       <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Create Post" component={CreatePost} />
@@ -66,13 +59,12 @@ const Main = ({
     <SafeAreaView style={{flex: 1, paddingTop: 20, backgroundColor: 'black'}}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {/* Bottom Tabs as main */}
-        {/* <Stack.Screen name="ProfileTab" component={ProfileTabs} /> */}
-        <Stack.Screen
-          name="Tabs"
-          component={() => <BottomTabs setIsLoggedIn={setIsLoggedIn} />}
-        />
+        <Stack.Screen name="Tabs" component={BottomTabs} />
         {/* Profile screen separate */}
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="Profile"
+          component={() => <ProfileScreen setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Stack.Screen name="SinglePost" component={SinglePostScreen} />
       </Stack.Navigator>
     </SafeAreaView>

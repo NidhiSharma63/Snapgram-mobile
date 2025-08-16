@@ -23,6 +23,16 @@ const useAuthComponent = (
     bio: '',
   });
 
+  const handleUpdateField = useCallback(
+    (key: string, value: string) => {
+      setUserCreds(prev => ({
+        ...prev,
+        [key]: value,
+      }));
+    },
+    [setUserCreds],
+  );
+
   const handleGetCreds = useCallback(() => {
     setUserCreds(prev => ({
       ...prev,
@@ -45,6 +55,7 @@ const useAuthComponent = (
 
   const handleLogin = useCallback(async () => {
     try {
+      console.log('userCreds', userCreds);
       const dataSignIn = await mutateSignIn(userCreds);
       await AsyncStorage.setItem(
         AppConstants.USER_DETAILS,
@@ -57,6 +68,8 @@ const useAuthComponent = (
   }, [userCreds, mutateSignIn, setIsLoggedIn]);
 
   const handleSignUp = useCallback(async () => {
+    console.log('userCreds', userCreds);
+
     const dataSignIn = await mutateSignUp(userCreds);
     await AsyncStorage.setItem(
       AppConstants.USER_DETAILS,
@@ -73,6 +86,7 @@ const useAuthComponent = (
     handleLogin,
     handleSignUp,
     isLoading,
+    handleUpdateField,
   };
 };
 

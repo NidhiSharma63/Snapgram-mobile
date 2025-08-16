@@ -21,6 +21,7 @@ const AuthComponent = ({
     handleLogin,
     isLoading,
     handleSignUp,
+    handleUpdateField,
   } = useAuthComponent(setIsLoggedIn);
 
   return (
@@ -38,6 +39,7 @@ const AuthComponent = ({
             value={userCreds.username}
             style={style.input}
             placeholder="User Name"
+            onChangeText={text => handleUpdateField('username', text)}
           />
         </View>
       )}
@@ -49,6 +51,7 @@ const AuthComponent = ({
             value={userCreds.bio}
             style={style.input}
             placeholder="Bio"
+            onChangeText={text => handleUpdateField('bio', text)}
           />
         </View>
       )}
@@ -60,6 +63,7 @@ const AuthComponent = ({
           value={userCreds.email}
           style={style.input}
           placeholder="Email"
+          onChangeText={text => handleUpdateField('email', text)}
         />
       </View>
       {/* Password */}
@@ -69,6 +73,7 @@ const AuthComponent = ({
           value={userCreds.password}
           style={style.input}
           placeholder="password"
+          onChangeText={text => handleUpdateField('password', text)}
         />
       </View>
       <View style={style.buttonContainer}>
