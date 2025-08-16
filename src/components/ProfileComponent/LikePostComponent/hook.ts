@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
@@ -12,10 +13,15 @@ const useLikePostComponent = () => {
   const {useGetAllUser} = useAuth();
   const {data: usersData, isFetching: isLoadinUser} = useGetAllUser();
   const isLoading = userLikePostPending || isLoadinUser || isPostLoading;
+  const navigation = useNavigation();
+  const handleNavigateToSinglePost = (id: string) => {
+    navigation.navigate('SinglePost', {id});
+  };
   return {
     usersData,
     posts,
     isLoading,
+    handleNavigateToSinglePost,
   };
 };
 

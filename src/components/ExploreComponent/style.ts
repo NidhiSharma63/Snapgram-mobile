@@ -24,7 +24,7 @@ const style = StyleSheet.create({
   explorePost: {
     width: '100%',
     backgroundColor: colors.secondary,
-    // padding: 10,
+    padding: 10,
     borderRadius: 10,
     position: 'relative',
   },
