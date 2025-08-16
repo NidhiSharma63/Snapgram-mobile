@@ -1,6 +1,7 @@
 import colors from 'constant/color';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
+const screenWidth = Dimensions.get('window').width;
 const style = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -23,15 +24,16 @@ const style = StyleSheet.create({
   explorePost: {
     width: '100%',
     backgroundColor: colors.secondary,
-    padding: 10,
+    // padding: 10,
     borderRadius: 10,
     position: 'relative',
   },
   postImage: {
-    width: 350,
+    // width: 350,
     height: 200,
     backgroundColor: colors.TextPrimary,
     borderRadius: 10,
+    width: screenWidth - 40,
   },
   userData: {
     position: 'absolute',
