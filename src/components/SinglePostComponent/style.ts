@@ -1,25 +1,26 @@
 import colors from 'constant/color';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    gap: 10,
     padding: 10,
+    // alignItems: 'center',  ❌ ye hatao
   },
   postCard: {
-    // padding: 10,
     flexDirection: 'column',
     gap: 10,
-    alignItems: 'flex-start',
     backgroundColor: colors.secondary,
     borderRadius: 10,
     width: '100%',
+    padding: 10,
   },
   postCardHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: 5,
   },
   headerMetadata: {
@@ -34,18 +35,18 @@ const style = StyleSheet.create({
     color: colors.TextSecondary,
   },
   postImg: {
-    width: 350,
+    width: screenWidth - 40, // screen width - (padding * 2)
     height: 500,
     borderRadius: 10,
-    objectFit: 'contain',
-    // backgroundColor: 'blue',
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
     justifyContent: 'space-between',
     width: '100%',
+    marginTop: 10,
   },
   userAvatar: {
     borderRadius: 50,
@@ -58,17 +59,18 @@ const style = StyleSheet.create({
     backgroundColor: colors.secondary,
     padding: 10,
     borderRadius: 10,
-    position: 'relative',
+    marginBottom: 10,
   },
   postImage: {
-    width: 350,
+    width: screenWidth - 40,
     height: 200,
     backgroundColor: colors.TextPrimary,
     borderRadius: 10,
+    alignSelf: 'center',
   },
   userData: {
     position: 'absolute',
-    left: 30,
+    left: 20,
     flexDirection: 'row',
     gap: 10,
     bottom: 20,
