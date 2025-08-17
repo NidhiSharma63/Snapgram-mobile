@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import useHomeComponent from 'components/HomeComponent/hook';
 import ProfileTabs from 'components/ProfileComponent/ProfileTab/ProfileTab';
 import style from 'components/ProfileComponent/style';
 import React, {useCallback} from 'react';
@@ -9,16 +10,17 @@ const Profile = () => {
   const handleNavigateToUpdateProfile = useCallback(() => {
     navigation.navigate('UpdateProfile');
   }, [navigation]);
+  const {userDetails} = useHomeComponent();
   return (
     <>
       <View style={style.container}>
         <ProfilePlaceholder />
         {/*  */}
         <View style={style.userData}>
-          <Text style={style.textPrimary}>Nidhi sharma</Text>
-          <Text style={style.textSecondary}>nidhisharma@gmail.com</Text>
+          <Text style={style.textPrimary}>{userDetails?.username}</Text>
+          <Text style={style.textSecondary}>{userDetails?.email}</Text>
           <Text style={[style.textSecondary, {marginTop: 5}]}>Bio</Text>
-          <Text style={style.textSecondary}>Coder</Text>
+          <Text style={style.textSecondary}>{userDetails?.bio}</Text>
         </View>
         {/* Edit button */}
         <Pressable
