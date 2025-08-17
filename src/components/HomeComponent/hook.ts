@@ -5,6 +5,7 @@ import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
 import useSavePost from 'hooks/useSavePost';
+import getStoragePathFromUrl from 'lib/getStoragePathFromUrl';
 import getUserDetails from 'lib/getUserDetails';
 import {useCallback, useEffect, useState} from 'react';
 import Toast from 'react-native-toast-message';
@@ -61,12 +62,6 @@ const useHomeComponent = () => {
     (postId: string) => removeSave({postId}),
     [removeSave],
   );
-  const getStoragePathFromUrl = (url: string) => {
-    // Example: https://.../o/images%2Fpost_1755411430098.jpg?alt=media&token=xxxx
-    const decodedUrl = decodeURIComponent(url);
-    const match = decodedUrl.match(/\/o\/(.*?)\?/);
-    return match ? match[1] : null; // returns "images/post_1755411430098.jpg"
-  };
 
   const handleDeletePost = useCallback(
     async (postId: string, filePath: string) => {
