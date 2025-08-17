@@ -4,8 +4,13 @@ import React from 'react';
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 const CreatePost = () => {
-  const {imageUri, handleImagePick, handleChange, handleCreatePost} =
-    useCreatePostComponent();
+  const {
+    imageUri,
+    handleImagePick,
+    handleChange,
+    handleCreatePost,
+    handleCancel,
+  } = useCreatePostComponent();
   return (
     <View style={style.container}>
       <View style={style.inputContainer}>
@@ -44,7 +49,7 @@ const CreatePost = () => {
         />
       </View>
       <View style={style.buttonContainer}>
-        <TouchableOpacity style={style.button} onPress={handleImagePick}>
+        <TouchableOpacity style={style.button} onPress={handleCancel}>
           <Text style={style.buttonText}>Cancel</Text>
         </TouchableOpacity>
         <TouchableOpacity style={style.button} onPress={handleCreatePost}>

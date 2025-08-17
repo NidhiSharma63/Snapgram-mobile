@@ -1,17 +1,44 @@
 import style from 'components/CreatePostComponent/style';
 import useCreateProfileComponent from 'components/CreateProfileComponent/hook';
 import React from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 const CreateProfileComponent = () => {
-  const {handleChange, handleImagePick, imageUri} = useCreateProfileComponent();
+  const {
+    handleChange,
+    userValues,
+    handleImagePick,
+    imageUri,
+    handleSubmit,
+    isUploading,
+    handleCancel,
+  } = useCreateProfileComponent();
   return (
     <View style={style.container}>
       <View style={style.inputContainer}>
-        <Text style={style.label}>Caption</Text>
+        <Text style={style.label}>Username</Text>
         <TextInput
-          placeholder="Name"
+          placeholder="username"
           style={style.input}
-          onChangeText={text => handleChange('caption', text)}
+          value={userValues.username}
+          editable={false}
+          onChangeText={text => handleChange('username', text)}
+        />
+      </View>
+      <View style={style.inputContainer}>
+        <Text style={style.label}>Bio</Text>
+        <TextInput
+          placeholder="bio"
+          style={style.input}
+          value={userValues.bio}
+          onChangeText={text => handleChange('bio', text)}
         />
       </View>
       <TouchableOpacity
@@ -25,13 +52,20 @@ const CreateProfileComponent = () => {
           style={{width: 200, height: 200, marginTop: 10, alignSelf: 'center'}}
         />
       )}
-      <View style={style.inputContainer}>
-        <Text style={style.label}>Add Location</Text>
-        <TextInput
-          placeholder="UK"
-          style={style.input}
-          onChangeText={text => handleChange('location', text)}
-        />
+      {/* save profile */}
+      <View style={style.buttonContainer}>
+        {!isUploading && (
+          <Pressable style={style.button} onPress={handleCancel}>
+            {<Text style={style.buttonText}>Cancel </Text>}
+          </Pressable>
+        )}
+        <Pressable style={style.button} onPress={handleSubmit}>
+          {isUploading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={style.buttonText}>Save Profile</Text>
+          )}
+        </Pressable>
       </View>
     </View>
   );

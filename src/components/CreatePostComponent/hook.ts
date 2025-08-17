@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import usePost from 'hooks/usePost';
 import getUserDetails from 'lib/getUserDetails';
 import validateField from 'lib/ValidatePostField';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
@@ -88,7 +88,7 @@ const useCreatePostComponent = () => {
     try {
       setIsPostUploading(true);
 
-      // yaha filename ke liye simple timestamp use kiya
+      // get file name using timestamp
       const timestamp = Date.now();
       const fileName = `images/post_${timestamp}.jpg`;
 
@@ -118,6 +118,21 @@ const useCreatePostComponent = () => {
     }
   }
 
+  /**
+   * handle cancel click
+   */
+  const handleCancel = useCallback(() => {
+    navigation.goBack();
+    // reset all values
+    setValues({
+      caption: '',
+      location: '',
+      tags: '',
+      userId: '',
+      userAvatar: '',
+      createdAt: new Date(),
+    });
+  }, [navigation]);
   return {
     imageUri,
     isPostUploading,
@@ -125,6 +140,7 @@ const useCreatePostComponent = () => {
     handleCreatePost,
     userDetails,
     handleChange,
+    handleCancel,
   };
 };
 
