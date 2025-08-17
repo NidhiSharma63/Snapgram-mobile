@@ -76,5 +76,18 @@ const style = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  editButtonContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: '#0F172A',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 14,
+  },
 });
 export default style;

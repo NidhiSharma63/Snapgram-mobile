@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import colors from 'constant/color';
 import CreatePost from 'pages/CreatePostScreen';
+import CreateProfileScreen from 'pages/CreateProfileScreen';
 import Explore from 'pages/Explore';
 import HomeScreen from 'pages/HomeScreen';
 import PeopleScreen from 'pages/PeopleScreen';
@@ -66,6 +67,7 @@ const Main = ({
           component={() => <ProfileScreen setIsLoggedIn={setIsLoggedIn} />}
         />
         <Stack.Screen name="SinglePost" component={SinglePostScreen} />
+        <Stack.Screen name="UpdateProfile" component={CreateProfileScreen} />
       </Stack.Navigator>
     </SafeAreaView>
     // </NavigationContainer>
