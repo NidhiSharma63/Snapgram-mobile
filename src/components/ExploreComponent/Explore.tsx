@@ -1,7 +1,16 @@
 import useExplore from 'components/ExploreComponent/hook';
 import style from 'components/ExploreComponent/style';
+import colors from 'constant/color';
 import React from 'react';
-import {FlatList, Image, Pressable, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 import Search from '../../assets/images/search.svg';
 
@@ -39,9 +48,6 @@ const Explore = () => {
     );
   };
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
   return (
     <View style={style.container}>
       <View style={style.inputContainer}>
@@ -52,13 +58,17 @@ const Explore = () => {
           style={style.input}
         />
       </View>
-      <FlatList
-        data={posts || []}
-        keyExtractor={(item, index) => `${item._id}-${index}`}
-        renderItem={renderPost}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 20}}
-      />
+      {isLoading ? (
+        <ActivityIndicator color={colors.Primary} size={'large'} />
+      ) : (
+        <FlatList
+          data={posts || []}
+          keyExtractor={(item, index) => `${item._id}-${index}`}
+          renderItem={renderPost}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 20}}
+        />
+      )}
     </View>
   );
 };

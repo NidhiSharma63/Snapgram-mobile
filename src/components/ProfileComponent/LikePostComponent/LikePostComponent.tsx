@@ -1,8 +1,16 @@
 import style from 'components/ProfileComponent/style';
 import React from 'react';
-import {FlatList, Image, Pressable, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from 'react-native';
 // import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 import useLikePostComponent from 'components/ProfileComponent/LikePostComponent/hook';
+import colors from 'constant/color';
 import ProfilePlaceholder from '../../../assets/images/profile-placeholder.svg';
 const SavePostComponent = () => {
   const {usersData, posts, isLoading, handleNavigateToSinglePost} =
@@ -40,13 +48,17 @@ const SavePostComponent = () => {
 
   return (
     <View style={style.saveTab}>
-      <FlatList
-        data={posts || []}
-        keyExtractor={(item, index) => `${item?._id}-${index}`}
-        renderItem={renderPost}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 20}}
-      />
+      {isLoading ? (
+        <ActivityIndicator color={colors.Primary} />
+      ) : (
+        <FlatList
+          data={posts || []}
+          keyExtractor={(item, index) => `${item?._id}-${index}`}
+          renderItem={renderPost}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 20}}
+        />
+      )}
     </View>
   );
 };

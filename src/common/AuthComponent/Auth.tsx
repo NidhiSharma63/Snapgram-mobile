@@ -1,10 +1,14 @@
 import useAuthComponent from 'common/AuthComponent/hook';
 import style from 'common/AuthComponent/style';
 import React from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
-import Loader from '../../assets/images/loader.svg';
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Logo from '../../assets/images/logo.svg';
-
 
 const AuthComponent = ({
   loginScreen,
@@ -80,14 +84,21 @@ const AuthComponent = ({
         {loginScreen ? (
           <Pressable style={style.button} onPress={handleLogin}>
             {isLoading ? (
-              <Loader style={{width: 2}} />
+              <ActivityIndicator color={'#fff'} />
             ) : (
               <Text style={style.buttonText}>Submit</Text>
             )}
           </Pressable>
         ) : (
           <Pressable style={style.button} onPress={handleSignUp}>
-            <Text style={style.buttonText}>Submit</Text>
+            {
+              // Activity indicator
+              isLoading ? (
+                <ActivityIndicator color={'#fff'} />
+              ) : (
+                <Text style={style.buttonText}>Submit</Text>
+              )
+            }
           </Pressable>
         )}
 

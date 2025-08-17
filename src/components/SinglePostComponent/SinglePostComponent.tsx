@@ -1,8 +1,16 @@
 import useSinglePostComponent from 'components/SinglePostComponent/hook';
 import style from 'components/SinglePostComponent/style';
+import colors from 'constant/color';
 import {formatDateTime} from 'lib/FormateDate';
 import React from 'react';
-import {FlatList, Image, Pressable, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from 'react-native';
 import Like from '../../assets/images/like.svg';
 import Liked from '../../assets/images/liked.svg';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
@@ -105,15 +113,18 @@ const SinglePostComponent = ({id}: {id: string}) => {
 
   return (
     <View style={style.container}>
-      {isPostPending && <Text>Loading...</Text>}
-      <FlatList
-        data={staticPost || []}
-        keyExtractor={(item, index) => `${item._id}-${index}`}
-        renderItem={renderPost}
-        ListHeaderComponent={renderHeader}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 20}}
-      />
+      {isPostPending ? (
+        <ActivityIndicator size="large" color={colors.Primary} />
+      ) : (
+        <FlatList
+          data={staticPost || []}
+          keyExtractor={(item, index) => `${item._id}-${index}`}
+          renderItem={renderPost}
+          ListHeaderComponent={renderHeader}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 20}}
+        />
+      )}
     </View>
   );
 };

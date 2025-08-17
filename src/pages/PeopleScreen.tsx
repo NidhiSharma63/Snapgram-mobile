@@ -12,7 +12,7 @@ const PeopleScreen = () => {
   };
   return (
     <View style={{flex: 1}}>
-     <CustomHeader
+      <CustomHeader
         rightElement={
           <Pressable onPress={handleNavigateToBackScreen}>
             <Back width={32} height={32} />

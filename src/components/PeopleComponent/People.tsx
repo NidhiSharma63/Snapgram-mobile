@@ -1,7 +1,15 @@
 import style from 'components/PeopleComponent/style';
+import colors from 'constant/color';
 import useAuth from 'hooks/useAuth';
 import React from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 
 const People = () => {
@@ -30,7 +38,11 @@ const People = () => {
   );
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={style.container}>
+        <ActivityIndicator size="large" color={colors.Primary} />
+      </View>
+    );
   }
 
   return (
