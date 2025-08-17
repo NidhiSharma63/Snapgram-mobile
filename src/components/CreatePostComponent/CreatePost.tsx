@@ -1,34 +1,19 @@
+import useCreatePostComponent from 'components/CreatePostComponent/hook';
 import style from 'components/CreatePostComponent/style';
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
 
 const CreatePost = () => {
-  const [imageUri, setImageUri] = useState<string | undefined>(undefined);
-
-  const handleImagePick = () => {
-    launchImageLibrary(
-      {
-        mediaType: 'photo',
-        quality: 1,
-      },
-      response => {
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.errorCode) {
-          console.log('ImagePicker Error: ', response.errorMessage);
-        } else {
-          const uri = response?.assets?.[0].uri;
-          setImageUri(uri);
-        }
-      },
-    );
-  };
+  const {imageUri, handleImagePick, handleChange} = useCreatePostComponent();
   return (
     <View style={style.container}>
       <View style={style.inputContainer}>
         <Text style={style.label}>Caption</Text>
-        <TextInput placeholder="Name" style={style.input} />
+        <TextInput
+          placeholder="Name"
+          style={style.input}
+          onChangeText={text => handleChange('caption', text)}
+        />
       </View>
       <TouchableOpacity
         style={[style.button, {width: '100%'}]}
@@ -38,16 +23,24 @@ const CreatePost = () => {
       {imageUri && (
         <Image
           source={{uri: imageUri}}
-          style={{width: 200, height: 200, marginTop: 10}}
+          style={{width: 200, height: 200, marginTop: 10, alignSelf: 'center'}}
         />
       )}
       <View style={style.inputContainer}>
         <Text style={style.label}>Add Location</Text>
-        <TextInput placeholder="UK" style={style.input} />
+        <TextInput
+          placeholder="UK"
+          style={style.input}
+          onChangeText={text => handleChange('location', text)}
+        />
       </View>
       <View style={style.inputContainer}>
         <Text style={style.label}>Add Tags (separated by comma " , ")</Text>
-        <TextInput placeholder="Art, Music" style={style.input} />
+        <TextInput
+          placeholder="Art, Music"
+          style={style.input}
+          onChangeText={text => handleChange('tags', text)}
+        />
       </View>
       <View style={style.buttonContainer}>
         <TouchableOpacity style={style.button} onPress={handleImagePick}>

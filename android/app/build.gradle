@@ -111,11 +111,18 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
+
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
+    // 👇 Firebase BOM (recommended)
+    implementation platform('com.google.firebase:firebase-bom:33.1.1')
+
+    // 👇 ek base dependency (analytics safe hoti hai, chahe use na karo)
+    implementation "com.google.firebase:firebase-analytics"
 }
 // read values from .env
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+apply plugin: 'com.google.gms.google-services'
