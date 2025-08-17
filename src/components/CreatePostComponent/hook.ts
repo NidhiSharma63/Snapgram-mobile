@@ -2,6 +2,7 @@ import storage from '@react-native-firebase/storage';
 import {useNavigation} from '@react-navigation/native';
 import usePost from 'hooks/usePost';
 import getUserDetails from 'lib/getUserDetails';
+import validateField from 'lib/ValidatePostField';
 import {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -67,12 +68,20 @@ const useCreatePostComponent = () => {
   };
 
   // create post handler
-  async function handleCreatePost(values: any) {
+  async function handleCreatePost() {
     if (!imageUri) {
       Toast.show({
         type: 'error',
         text1: 'Please select an image first',
       });
+      return;
+    }
+
+    if (
+      !validateField('Caption', values?.caption) ||
+      !validateField('Location', values?.location) ||
+      !validateField('Tags', values?.tags)
+    ) {
       return;
     }
 
@@ -96,8 +105,8 @@ const useCreatePostComponent = () => {
       const url = await storage().ref(fileName).getDownloadURL();
 
       const updatedPayload = {...values, file: url};
+      console.log('updatedPayload', updatedPayload);
       await createPost(updatedPayload);
-
       navigation.navigate('Home');
     } catch (error) {
       Toast.show({
