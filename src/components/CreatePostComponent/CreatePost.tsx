@@ -1,7 +1,14 @@
 import useCreatePostComponent from 'components/CreatePostComponent/hook';
 import style from 'components/CreatePostComponent/style';
 import React from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const CreatePost = () => {
   const {
@@ -10,6 +17,7 @@ const CreatePost = () => {
     handleChange,
     handleCreatePost,
     handleCancel,
+    isPostUploading,
   } = useCreatePostComponent();
   return (
     <View style={style.container}>
@@ -49,11 +57,17 @@ const CreatePost = () => {
         />
       </View>
       <View style={style.buttonContainer}>
-        <TouchableOpacity style={style.button} onPress={handleCancel}>
-          <Text style={style.buttonText}>Cancel</Text>
-        </TouchableOpacity>
+        {!isPostUploading && (
+          <TouchableOpacity style={style.button} onPress={handleCancel}>
+            <Text style={style.buttonText}>Cancel</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={style.button} onPress={handleCreatePost}>
-          <Text style={style.buttonText}>Upload </Text>
+          {isPostUploading ? (
+            <ActivityIndicator size="small" color={'#fff'} />
+          ) : (
+            <Text style={style.buttonText}>Upload </Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
