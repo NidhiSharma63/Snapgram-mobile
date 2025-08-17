@@ -1,11 +1,18 @@
+import {getApp} from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
+
 import useAuth from 'hooks/useAuth';
 import useLikePost from 'hooks/useLikePost';
 import usePost from 'hooks/usePost';
 import useSavePost from 'hooks/useSavePost';
-import {useCallback} from 'react';
+import getUserDetails from 'lib/getUserDetails';
+import {useCallback, useEffect, useState} from 'react';
+import Toast from 'react-native-toast-message';
 
 const useHomeComponent = () => {
-  const {useGetAllPost} = usePost();
+  const {useGetAllPost, useDeletePost} = usePost();
+
+  const app = getApp(); // default app instance
   const {
     data,
     isPending: isPostLoading,
@@ -16,47 +23,79 @@ const useHomeComponent = () => {
 
   const {useGetAllUser} = useAuth();
   const {data: usersData} = useGetAllUser();
+  const {mutateAsync: deletePost} = useDeletePost();
+
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    async function getDetails() {
+      const data = await getUserDetails();
+      setUserDetails(data);
+    }
+    getDetails();
+  }, []);
 
   const {useAddSave, useGetAllSavePost, useRemoveSave} = useSavePost();
   const {useAddLike, useGetAllLike, useRemoveLike} = useLikePost();
   const {data: saveData} = useGetAllSavePost();
   const {data: likeData} = useGetAllLike();
 
-  // add like and save post
   const {mutateAsync: addLike} = useAddLike();
   const {mutateAsync: addSave} = useAddSave();
-  // remove like and remove save post
   const {mutateAsync: removeLike} = useRemoveLike();
   const {mutateAsync: removeSave} = useRemoveSave();
 
   const handleAddLike = useCallback(
-    (postId: string) => {
-      addLike({postId: postId});
-    },
+    (postId: string) => addLike({postId}),
     [addLike],
   );
   const handleAddSave = useCallback(
-    (postId: string) => {
-      addSave({postId: postId});
-    },
+    (postId: string) => addSave({postId}),
     [addSave],
   );
-
   const handleRemoveLike = useCallback(
-    (postId: string) => {
-      removeLike({postId: postId});
-    },
+    (postId: string) => removeLike({postId}),
     [removeLike],
   );
-
   const handleRemoveSave = useCallback(
-    (postId: string) => {
-      removeSave({postId: postId});
-    },
+    (postId: string) => removeSave({postId}),
     [removeSave],
   );
+  const getStoragePathFromUrl = (url: string) => {
+    // Example: https://.../o/images%2Fpost_1755411430098.jpg?alt=media&token=xxxx
+    const decodedUrl = decodeURIComponent(url);
+    const match = decodedUrl.match(/\/o\/(.*?)\?/);
+    return match ? match[1] : null; // returns "images/post_1755411430098.jpg"
+  };
 
-  // console.log(data, isPostLoading, isFetchingNextPage);
+  const handleDeletePost = useCallback(
+    async (postId: string, filePath: string) => {
+      try {
+        const storagePath = getStoragePathFromUrl(filePath);
+        if (storagePath) {
+          await storage().ref(storagePath).delete();
+        }
+        // remove from save/like if present
+        if (saveData?.[0]?.postId.includes(postId)) {
+          removeSave({postId});
+        }
+        if (likeData?.[0]?.postId.includes(postId)) {
+          removeLike({postId});
+        }
+
+        // delete from DB
+        await deletePost({_id: postId});
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error deleting post',
+        });
+        console.log('Delete error:', error);
+      }
+    },
+    [removeLike, removeSave, deletePost, saveData, likeData],
+  );
+
   return {
     data,
     isPostLoading,
@@ -70,6 +109,8 @@ const useHomeComponent = () => {
     handleRemoveSave,
     fetchNextPage,
     hasNextPage,
+    userDetails,
+    handleDeletePost,
   };
 };
 

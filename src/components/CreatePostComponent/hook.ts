@@ -105,7 +105,6 @@ const useCreatePostComponent = () => {
       const url = await storage().ref(fileName).getDownloadURL();
 
       const updatedPayload = {...values, file: url};
-      console.log('updatedPayload', updatedPayload);
       await createPost(updatedPayload);
       navigation.navigate('Home');
     } catch (error) {
@@ -124,6 +123,7 @@ const useCreatePostComponent = () => {
     isPostUploading,
     handleImagePick,
     handleCreatePost,
+    userDetails,
     handleChange,
   };
 };

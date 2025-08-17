@@ -12,6 +12,7 @@ import {
 import Like from '../../assets/images/like.svg';
 import Liked from '../../assets/images/liked.svg';
 
+import Delete from '../../assets/images/delete.svg';
 import ProfilePlaceholder from '../../assets/images/profile-placeholder.svg';
 import Save from '../../assets/images/save.svg';
 import Saved from '../../assets/images/saved.svg';
@@ -32,6 +33,8 @@ const Home = () => {
     handleRemoveLike,
     handleRemoveSave,
     usersData,
+    userDetails,
+    handleDeletePost,
   } = useHomeComponent();
 
   // Flatten paginated data into a single array
@@ -43,6 +46,7 @@ const Home = () => {
   }, [data]);
 
   const renderPostCard = ({item}: {item: any}) => {
+    console.log(item, 'item', userDetails, 'userDetails');
     const findCurrentUser = usersData?.find(user => user?._id === item?.userId);
     return (
       <View style={style.postCard}>
@@ -96,15 +100,22 @@ const Home = () => {
               <Like />
             </Pressable>
           )}
-          {saveData?.[0]?.postId.includes(item._id) ? (
-            <Pressable onPress={() => handleRemoveSave(item._id)}>
-              <Saved />
-            </Pressable>
-          ) : (
-            <Pressable onPress={() => handleAddSave(item._id)}>
-              <Save />
-            </Pressable>
-          )}
+          <View style={style.saveAndDeleteButton}>
+            {saveData?.[0]?.postId.includes(item._id) ? (
+              <Pressable onPress={() => handleRemoveSave(item._id)}>
+                <Saved />
+              </Pressable>
+            ) : (
+              <Pressable onPress={() => handleAddSave(item._id)}>
+                <Save />
+              </Pressable>
+            )}
+            {userDetails?._id === item?.userId && (
+              <Pressable onPress={() => handleDeletePost(item._id, item.file)}>
+                <Delete />
+              </Pressable>
+            )}
+          </View>
         </View>
       </View>
     );
@@ -119,16 +130,13 @@ const Home = () => {
   }
 
   return (
-    // <ScrollView>
     <FlatList
       data={posts}
       keyExtractor={(item, index) => `${item._id}-${index}`}
       renderItem={renderPostCard}
       contentContainerStyle={style.container}
-      // ListHeaderComponent={<Text style={{marginTop: 10}}>Home Feed</Text>}
       showsVerticalScrollIndicator={false}
       onEndReached={() => {
-        console.log('end reached', hasNextPage);
         if (hasNextPage) {
           fetchNextPage();
         }
@@ -140,7 +148,6 @@ const Home = () => {
         ) : null
       }
     />
-    // </ScrollView>
   );
 };
 

@@ -11,7 +11,7 @@ const style = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     gap: 20,
-    marginTop: 10,  
+    marginTop: 10,
     // flex: 1,
   },
   postCard: {
@@ -60,6 +60,11 @@ const style = StyleSheet.create({
     width: 32,
     height: 32,
     marginRight: 10,
+  },
+  saveAndDeleteButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
 });
 
